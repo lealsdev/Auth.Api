@@ -5,7 +5,8 @@
   </PropertyGroup>
 
   <ItemGroup>
-    <ProjectReference Include="../auth.application/auth.application.csproj"/>
+    <ProjectReference Include="../Auth.Application/Auth.Application.csproj"/>
+    <ProjectReference Include="../Auth.Infra/Auth.Infra.Ioc/Auth.Infra.Ioc.csproj"/>
   </ItemGroup>
 
 </Project>
