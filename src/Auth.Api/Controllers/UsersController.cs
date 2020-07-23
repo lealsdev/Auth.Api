@@ -46,22 +46,49 @@ namespace Auth.Api.Controllers
         [HttpPut("{id}")]
         public async Task<IActionResult> Put(Guid id, UserForUpdate userForUpdateDto) 
         {
-            if(this.compareIdFromClaimsWith(id))
-                return Unauthorized();
+            if(this.isLoogedUserAbleToUpdateUserData(id))
+            {
+                var userFromRepo = await _userApplication.GetBy(id);
 
-            var userFromRepo = await _userApplication.GetBy(id);
+                this._mapper.Map(userForUpdateDto, userFromRepo);
 
-            this._mapper.Map(userForUpdateDto, userFromRepo);
-
-            if(await this._userApplication.SaveAll())
-                return Ok();
+                if(await this._userApplication.SaveAll())
+                    return Ok();
+                else
+                    return BadRequest();
+            }
             else
-                return BadRequest();
+            {
+                return Unauthorized();
+            }
         }
 
-        public bool compareIdFromClaimsWith(Guid idFromRequest)
+        [HttpDelete("{id}")]
+        public async Task<IActionResult> Delete(Guid id) 
         {
-            return idFromRequest.ToString() != User.FindFirst(ClaimTypes.NameIdentifier).Value;
+            if(this.isLoogedUserAbleToDeleteUserData())
+            {
+                var userFromRepo = await _userApplication.GetBy(id);
+
+                if(await this._userApplication.Delete(id))
+                    return Ok();
+                else
+                    return BadRequest();
+            }
+            else
+            {
+                return Unauthorized();
+            }
+        }
+
+        private bool isLoogedUserAbleToUpdateUserData(Guid idFromRequest)
+        {
+            return idFromRequest.ToString() == User.FindFirst(ClaimTypes.NameIdentifier).Value;
+        }
+
+        private bool isLoogedUserAbleToDeleteUserData()
+        {
+            return User.FindFirst(ClaimTypes.Role).Value == "admin";
         }
     }
 }

@@ -25,6 +25,13 @@ namespace Auth.Repository
             return await this.SaveAll();
         }
 
+        public async Task<bool> Delete(User user)
+        {
+            this._context.Users.Remove(user);
+            
+            return await this.SaveAll();
+        }
+
         public async Task<bool> SaveAll()
         {
             return await _context.SaveChangesAsync() > 0;

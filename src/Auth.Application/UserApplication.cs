@@ -29,6 +29,13 @@ namespace Auth.Application
             return user;
         }
 
+        public async Task<bool> Delete(Guid id)
+        {
+            var userForDelete = await this.GetBy(id);
+
+            return await this._userRepository.Delete(userForDelete);
+        }
+
         public async Task<List<User>> Get()
         {
             return await this._userRepository.Get();
@@ -44,14 +51,14 @@ namespace Auth.Application
             return await this._userRepository.GetBy(email);
         }
 
-        public async Task<bool> checkUserExistsBy(string email)
-        {
-            return await GetBy(email) == null;
-        }
-
         public async Task<bool> SaveAll()
         {
             return await this._userRepository.SaveAll();
+        }
+
+        public async Task<bool> checkUserExistsBy(string email)
+        {
+            return await GetBy(email) == null;
         }
     }
 }

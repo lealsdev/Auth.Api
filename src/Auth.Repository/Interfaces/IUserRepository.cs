@@ -9,6 +9,8 @@ namespace Auth.Repository.Interfaces
     {
          Task<bool> Add(User user);
 
+         Task<bool> Delete(User user);
+
          Task<List<User>> Get();
 
          Task<User> GetBy(Guid id);

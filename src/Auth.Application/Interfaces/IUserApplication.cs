@@ -9,6 +9,8 @@ namespace Auth.Application.Interfaces
     {
          Task<User> Add(User user);
 
+         Task<bool> Delete(Guid id);
+
          Task<List<User>> Get();
 
          Task<User> GetBy(Guid id);
