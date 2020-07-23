@@ -1,5 +1,6 @@
 using System;
 using System.Collections.Generic;
+using System.Security.Claims;
 using System.Threading.Tasks;
 using Auth.Api.Dto;
 using Auth.Application.Interfaces;
@@ -40,6 +41,27 @@ namespace Auth.Api.Controllers
             var userForDetailed = _mapper.Map<UserForDetailed>(userFromRepo);
 
             return Ok(userForDetailed);
+        }
+
+        [HttpPut("{id}")]
+        public async Task<IActionResult> Put(Guid id, UserForUpdate userForUpdateDto) 
+        {
+            if(this.compareIdFromClaimsWith(id))
+                return Unauthorized();
+
+            var userFromRepo = await _userApplication.GetBy(id);
+
+            this._mapper.Map(userForUpdateDto, userFromRepo);
+
+            if(await this._userApplication.SaveAll())
+                return Ok();
+            else
+                return BadRequest();
+        }
+
+        public bool compareIdFromClaimsWith(Guid idFromRequest)
+        {
+            return idFromRequest.ToString() != User.FindFirst(ClaimTypes.NameIdentifier).Value;
         }
     }
 }

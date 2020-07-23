@@ -11,6 +11,7 @@ namespace Auth.Api
             CreateMap<User, UserForList>();
             CreateMap<User, UserForDetailed>();
             CreateMap<UserForRegister, User>();
+            CreateMap<UserForUpdate, User>();
         }
     }
 }

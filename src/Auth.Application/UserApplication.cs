@@ -1,9 +1,12 @@
 ﻿using System;
 using System.Collections.Generic;
+using System.Security.Claims;
 using System.Threading.Tasks;
 using Auth.Application.Interfaces;
 using Auth.Model;
 using Auth.Repository.Interfaces;
+using Microsoft.AspNetCore.Authorization;
+using Microsoft.AspNetCore.Mvc;
 
 namespace Auth.Application
 {
@@ -44,6 +47,11 @@ namespace Auth.Application
         public async Task<bool> checkUserExistsBy(string email)
         {
             return await GetBy(email) == null;
+        }
+
+        public async Task<bool> SaveAll()
+        {
+            return await this._userRepository.SaveAll();
         }
     }
 }

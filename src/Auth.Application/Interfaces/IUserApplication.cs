@@ -16,5 +16,7 @@ namespace Auth.Application.Interfaces
          Task<User> GetBy(string email);
 
          Task<bool> checkUserExistsBy(string email);
+
+         Task<bool> SaveAll();
     }
 }

@@ -14,5 +14,7 @@ namespace Auth.Repository.Interfaces
          Task<User> GetBy(Guid id);
 
          Task<User> GetBy(string email);
+
+         Task<bool> SaveAll();
     }
 }

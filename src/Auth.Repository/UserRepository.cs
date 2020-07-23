@@ -22,7 +22,12 @@ namespace Auth.Repository
         {
             this._context.Users.Add(user);
             
-            return await this._context.SaveChangesAsync() > 0;
+            return await this.SaveAll();
+        }
+
+        public async Task<bool> SaveAll()
+        {
+            return await _context.SaveChangesAsync() > 0;
         }
 
         public async Task<List<User>> Get()
