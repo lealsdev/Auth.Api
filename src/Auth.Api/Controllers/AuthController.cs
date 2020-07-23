@@ -12,9 +12,14 @@ namespace Auth.Api.Controllers
     public class AuthController : ControllerBase
     {
         private readonly IUserApplication _userApplication;
+        private readonly IAuthApplication _authApplication;
         private readonly IMapper _mapper;
-        public AuthController(IUserApplication userApplication, IMapper mapper)
+        public AuthController(
+            IUserApplication userApplication,        
+            IAuthApplication authApplication,
+            IMapper mapper)
         {
+            this._authApplication = authApplication;
             this._mapper = mapper;
             this._userApplication = userApplication;
         }
@@ -36,6 +41,18 @@ namespace Auth.Api.Controllers
             {
                 return BadRequest($"The email {userForRegister.Email} was already registered.");
             }
+        }
+
+        [HttpPost("login")]
+        public async Task<IActionResult> Login(UserForLogin userForLogin)
+        {
+            var userFromRepo = await this._authApplication.Login(
+                userForLogin.Email.ToLower(), userForLogin.Password);
+
+            if (userFromRepo == null)
+                return Unauthorized();
+
+            return Ok();
         }
     }
 }

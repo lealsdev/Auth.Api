@@ -23,6 +23,7 @@ namespace Auth.Infra.Ioc
             return serviceCollection
                 .AddScoped<IUserRepository, UserRepository>()
                 .AddScoped<IUserApplication, UserApplication>()
+                .AddScoped<IAuthApplication, AuthApplication>()
                 .AddScoped<IBCryptApplication, BCryptApplication>()
                 .AddAutoMapper(AppDomain.CurrentDomain.GetAssemblies());
         }

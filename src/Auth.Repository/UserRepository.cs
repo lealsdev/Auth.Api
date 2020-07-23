@@ -37,7 +37,7 @@ namespace Auth.Repository
 
         public async Task<User> GetBy(string email)
         {
-            return await _context.Users.FirstOrDefaultAsync(u => u.Email == email);
+            return await _context.Users.FirstOrDefaultAsync(u => u.Email.ToLower() == email.ToLower());
         }
     }
 }
