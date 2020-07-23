@@ -19,30 +19,12 @@ namespace Auth.Application
 
         public string CreateFor(User user)
         {
-            var claims = new[]
-            {
-                new Claim(ClaimTypes.NameIdentifier, user.Id.ToString()),
-                new Claim(ClaimTypes.Email, user.Email),
-                new Claim(ClaimTypes.Role, user.Claims)
-            };
+            var claims = this.CreateClaimsWith(user);
+            var key = this.CreateKey();
+            var credentials = CreateCredentialsWith(key);
+            var tokenDescriptor = this.CreateTokenDescriptorWith(claims, credentials);
 
-            var key = new SymmetricSecurityKey(
-                Encoding.UTF8.GetBytes(_configuration.GetSection("AppSettings:Token").Value));
-
-            var creds = new SigningCredentials(key, SecurityAlgorithms.HmacSha256Signature);
-
-            var tokenDescriptor = new SecurityTokenDescriptor
-            {
-                Subject = new ClaimsIdentity(claims),
-                Expires = DateTime.Now.AddDays(1),
-                SigningCredentials = creds
-            };
-
-            var tokenHandler = new JwtSecurityTokenHandler();
-
-            var token = tokenHandler.CreateToken(tokenDescriptor);
-
-            return tokenHandler.WriteToken(token);            
+            return CreateTokenWith(tokenDescriptor);
         }
 
         private Claim[] CreateClaimsWith(User user)
@@ -66,7 +48,7 @@ namespace Auth.Application
             return new SigningCredentials(key, SecurityAlgorithms.HmacSha256Signature);
         }
 
-        private SecurityTokenDescriptor CreateTokenDescriptorWith(ClaimsIdentity claims, SigningCredentials credentials)
+        private SecurityTokenDescriptor CreateTokenDescriptorWith(Claim[] claims, SigningCredentials credentials)
         {
             return new SecurityTokenDescriptor
             {
@@ -74,6 +56,15 @@ namespace Auth.Application
                 Expires = DateTime.Now.AddDays(1),
                 SigningCredentials = credentials
             };
+        }
+
+        private string CreateTokenWith(SecurityTokenDescriptor tokenDescriptor)
+        {
+            var tokenHandler = new JwtSecurityTokenHandler();
+
+            var token = tokenHandler.CreateToken(tokenDescriptor);
+
+            return tokenHandler.WriteToken(token); 
         }
     }
 }
