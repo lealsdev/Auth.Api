@@ -10,7 +10,7 @@ using Npgsql.EntityFrameworkCore.PostgreSQL.Metadata;
 namespace Auth.Api.Migrations
 {
     [DbContext(typeof(DataContext))]
-    [Migration("20200723014902_Initial")]
+    [Migration("20200723164239_Initial")]
     partial class Initial
     {
         protected override void BuildTargetModel(ModelBuilder modelBuilder)
@@ -27,6 +27,9 @@ namespace Auth.Api.Migrations
                         .ValueGeneratedOnAdd()
                         .HasColumnType("uuid");
 
+                    b.Property<string>("Claims")
+                        .HasColumnType("text");
+
                     b.Property<string>("Email")
                         .HasColumnType("text");
 
@@ -34,9 +37,6 @@ namespace Auth.Api.Migrations
                         .HasColumnType("text");
 
                     b.Property<string>("Password")
-                        .HasColumnType("text");
-
-                    b.Property<string>("Role")
                         .HasColumnType("text");
 
                     b.HasKey("Id");

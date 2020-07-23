@@ -25,6 +25,7 @@ namespace Auth.Infra.Ioc
                 .AddScoped<IUserApplication, UserApplication>()
                 .AddScoped<IAuthApplication, AuthApplication>()
                 .AddScoped<IBCryptApplication, BCryptApplication>()
+                .AddScoped<ITokenApplication, TokenApplication>()
                 .AddAutoMapper(AppDomain.CurrentDomain.GetAssemblies());
         }
     }

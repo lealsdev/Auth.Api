@@ -15,7 +15,7 @@ namespace Auth.Api.Migrations
                     Name = table.Column<string>(nullable: true),
                     Email = table.Column<string>(nullable: true),
                     Password = table.Column<string>(nullable: true),
-                    Role = table.Column<string>(nullable: true)
+                    Claims = table.Column<string>(nullable: true)
                 },
                 constraints: table =>
                 {

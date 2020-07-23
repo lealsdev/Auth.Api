@@ -25,6 +25,9 @@ namespace Auth.Api.Migrations
                         .ValueGeneratedOnAdd()
                         .HasColumnType("uuid");
 
+                    b.Property<string>("Claims")
+                        .HasColumnType("text");
+
                     b.Property<string>("Email")
                         .HasColumnType("text");
 
@@ -32,9 +35,6 @@ namespace Auth.Api.Migrations
                         .HasColumnType("text");
 
                     b.Property<string>("Password")
-                        .HasColumnType("text");
-
-                    b.Property<string>("Role")
                         .HasColumnType("text");
 
                     b.HasKey("Id");

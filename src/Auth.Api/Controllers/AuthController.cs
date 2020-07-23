@@ -14,14 +14,19 @@ namespace Auth.Api.Controllers
         private readonly IUserApplication _userApplication;
         private readonly IAuthApplication _authApplication;
         private readonly IMapper _mapper;
+
+        private readonly ITokenApplication _tokenApplication;
+
         public AuthController(
             IUserApplication userApplication,        
             IAuthApplication authApplication,
+            ITokenApplication tokenApplication,
             IMapper mapper)
         {
-            this._authApplication = authApplication;
-            this._mapper = mapper;
+            this._authApplication = authApplication;            
             this._userApplication = userApplication;
+            this._tokenApplication = tokenApplication;
+            this._mapper = mapper;
         }
 
         [HttpPost("register")]
@@ -52,7 +57,15 @@ namespace Auth.Api.Controllers
             if (userFromRepo == null)
                 return Unauthorized();
 
-            return Ok();
+            var token = this._tokenApplication.CreateFor(userFromRepo);
+            var userForDetailed = _mapper.Map<UserForDetailed>(userFromRepo);
+
+            return Ok(
+                new {
+                    token = token,
+                    user = userForDetailed
+                }
+            );
         }
     }
 }
