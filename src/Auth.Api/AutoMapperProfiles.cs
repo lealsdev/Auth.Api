@@ -9,6 +9,8 @@ namespace Auth.Api
         public AutoMapperProfiles()
         {
             CreateMap<User, UserForList>();
+            CreateMap<User, UserForDetailed>();
+            CreateMap<UserForRegister, User>();
         }
     }
 }

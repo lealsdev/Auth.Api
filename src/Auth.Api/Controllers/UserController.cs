@@ -1,3 +1,4 @@
+using System;
 using System.Collections.Generic;
 using System.Threading.Tasks;
 using Auth.Api.Dto;
@@ -21,6 +22,15 @@ namespace Auth.Api.Controllers
 
         [HttpGet]
         public async Task<IActionResult> Get()
+        {
+            var users = await this._userApplication.Get();
+            var usersForList = _mapper.Map<List<UserForList>>(users);
+
+            return Ok(usersForList);
+        }
+
+        [HttpGet("id", Name="GetBy")]
+        public async Task<IActionResult> GetBy(Guid id)
         {
             var users = await this._userApplication.Get();
             var usersForList = _mapper.Map<List<UserForList>>(users);

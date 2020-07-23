@@ -1,8 +1,9 @@
+using Auth.Application.Interfaces;
 using BCrypt;
 
 namespace Auth.Application
 {
-    public class BCryptApplication
+    public class BCryptApplication : IBCryptApplication
     {
         public string Encrypt(string password)
         {

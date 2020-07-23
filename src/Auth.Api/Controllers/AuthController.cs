@@ -1,6 +1,8 @@
 using System.Threading.Tasks;
 using Auth.Api.Dto;
 using Auth.Application.Interfaces;
+using Auth.Model;
+using AutoMapper;
 using Microsoft.AspNetCore.Mvc;
 
 namespace Auth.Api.Controllers
@@ -10,30 +12,25 @@ namespace Auth.Api.Controllers
     public class AuthController : ControllerBase
     {
         private readonly IUserApplication _userApplication;
-        public AuthController(IUserApplication userApplication)
+        private readonly IMapper _mapper;
+        public AuthController(IUserApplication userApplication, IMapper mapper)
         {
+            this._mapper = mapper;
             this._userApplication = userApplication;
         }
 
         [HttpPost("register")]
         public async Task<IActionResult> Register(UserForRegister userForRegister)
         {
-            if(await this._userApplication.checkUserExistsBy(userForRegister.Email))
+            if (await this._userApplication.checkUserExistsBy(userForRegister.Email))
             {
-                /*
-                if (await this._repository.UserExists(userForRegisterDto.Username))
-                    return BadRequest("Username already exists.");
+                var userToCreate = _mapper.Map<User>(userForRegister);
 
-                var userToCreate = _mapper.Map<User>(userForRegisterDto);
+                var createdUser = await this._userApplication.Add(userToCreate);
 
-                var createdUser = await this._repository.Register(
-                    userToCreate, userForRegisterDto.Password);
+                var userToReturn = _mapper.Map<UserForDetailed>(createdUser);
 
-                var userToReturn = _mapper.Map<UserForDetailedDto>(createdUser);
-
-                return CreatedAtRoute("GetUser", new { controller="Users", id=createdUser.Id }, userToReturn);
-                */
-                return Ok(123);
+                return CreatedAtRoute("GetBy", new { controller = "User", id = createdUser.Id }, userToReturn);
             }
             else
             {

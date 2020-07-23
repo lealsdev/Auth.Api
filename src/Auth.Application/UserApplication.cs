@@ -10,14 +10,20 @@ namespace Auth.Application
     public class UserApplication : IUserApplication
     {
         public IUserRepository _userRepository { get; }
-        public UserApplication(IUserRepository userRepository)
+        private readonly IBCryptApplication _bCryptApplication;
+        public UserApplication(IUserRepository userRepository, IBCryptApplication bCryptApplication)
         {
+            this._bCryptApplication = bCryptApplication;
             this._userRepository = userRepository;
         }
 
-        public async Task<bool> Add(User user)
+        public async Task<User> Add(User user)
         {
-            return await this._userRepository.Add(user);
+            user.Password = this._bCryptApplication.Encrypt(user.Password);
+
+            await this._userRepository.Add(user);
+
+            return user;
         }
 
         public async Task<List<User>> Get()
@@ -37,7 +43,7 @@ namespace Auth.Application
 
         public async Task<bool> checkUserExistsBy(string email)
         {
-            return await GetBy(email) != null;
+            return await GetBy(email) == null;
         }
     }
 }

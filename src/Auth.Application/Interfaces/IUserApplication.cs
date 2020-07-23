@@ -7,7 +7,7 @@ namespace Auth.Application.Interfaces
 {
     public interface IUserApplication
     {
-         Task<bool> Add(User user);
+         Task<User> Add(User user);
 
          Task<List<User>> Get();
 
