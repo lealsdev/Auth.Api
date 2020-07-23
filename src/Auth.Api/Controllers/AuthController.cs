@@ -40,7 +40,7 @@ namespace Auth.Api.Controllers
 
                 var userToReturn = _mapper.Map<UserForDetailed>(createdUser);
 
-                return CreatedAtRoute("GetBy", new { controller = "User", id = createdUser.Id }, userToReturn);
+                return CreatedAtRoute("GetBy", new { controller = "Users", id = createdUser.Id }, userToReturn);
             }
             else
             {

@@ -64,31 +64,20 @@ namespace Auth.Api.Controllers
         }
 
         [HttpDelete("{id}")]
+        [Authorize(Roles = "admin")]
         public async Task<IActionResult> Delete(Guid id) 
         {
-            if(this.isLoogedUserAbleToDeleteUserData())
-            {
-                var userFromRepo = await _userApplication.GetBy(id);
+            var userFromRepo = await _userApplication.GetBy(id);
 
-                if(await this._userApplication.Delete(id))
-                    return Ok();
-                else
-                    return BadRequest();
-            }
+            if(await this._userApplication.Delete(id))
+                return Ok();
             else
-            {
-                return Unauthorized();
-            }
+                return BadRequest();
         }
 
         private bool isLoogedUserAbleToUpdateUserData(Guid idFromRequest)
         {
             return idFromRequest.ToString() == User.FindFirst(ClaimTypes.NameIdentifier).Value;
-        }
-
-        private bool isLoogedUserAbleToDeleteUserData()
-        {
-            return User.FindFirst(ClaimTypes.Role).Value == "admin";
         }
     }
 }
