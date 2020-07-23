@@ -32,25 +32,7 @@ namespace auth.api
             services.AddDbContextWith(Configuration);                        
             services.AddControllers();
             services.AddDependencies();
-
-            services.AddAuthentication(JwtBearerDefaults.AuthenticationScheme)
-                .AddJwtBearer(options => {
-                    options.SaveToken = true;
-                    options.TokenValidationParameters = new TokenValidationParameters() {
-                        ValidateIssuerSigningKey = false,                        
-                        IssuerSigningKey = new SymmetricSecurityKey(
-                            Encoding.UTF8.GetBytes(
-                                Configuration.GetSection("AppSettings:Token").Value)),
-                        ValidateIssuer = false,
-                        ValidateAudience = false
-                    };
-                });
-
-            services.AddAuthorization(options =>
-            {
-                options.AddPolicy("admin", policy =>
-                                policy.RequireClaim("admin"));
-            });
+            services.AddAuthorizationAndAuthentication(Configuration);
         }
 
         // This method gets called by the runtime. Use this method to configure the HTTP request pipeline.
