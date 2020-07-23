@@ -1,6 +1,7 @@
 ﻿using System;
 using Auth.Model;
 using Microsoft.EntityFrameworkCore;
+using Microsoft.Extensions.Configuration;
 
 namespace Auth.Infra.Data
 {

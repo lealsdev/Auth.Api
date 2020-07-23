@@ -11,6 +11,8 @@ using Microsoft.Extensions.DependencyInjection;
 using Microsoft.Extensions.Hosting;
 using Microsoft.Extensions.Logging;
 using Auth.Infra.Ioc;
+using Auth.Infra.Data;
+using Microsoft.EntityFrameworkCore;
 
 namespace auth.api
 {
@@ -26,7 +28,7 @@ namespace auth.api
         // This method gets called by the runtime. Use this method to add services to the container.
         public void ConfigureServices(IServiceCollection services)
         {
-            services.AddDbContextWith(Configuration);
+            services.AddDbContextWith(Configuration);                        
             services.AddControllers();
             services.AddDependencies();
         }

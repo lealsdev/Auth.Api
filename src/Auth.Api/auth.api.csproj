@@ -9,4 +9,9 @@
     <ProjectReference Include="../Auth.Infra/Auth.Infra.Ioc/Auth.Infra.Ioc.csproj"/>
   </ItemGroup>
 
+  <ItemGroup>
+    <PackageReference Include="Microsoft.EntityFrameworkCore.Design" Version="3.1.0" />
+    <PackageReference Include="Npgsql.EntityFrameworkCore.PostgreSQL" Version="3.1.0"/>
+  </ItemGroup>
+
 </Project>

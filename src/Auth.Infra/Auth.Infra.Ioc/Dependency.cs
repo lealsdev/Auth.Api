@@ -10,7 +10,7 @@ namespace Auth.Infra.Ioc
     {
         public static IServiceCollection AddDbContextWith(this IServiceCollection serviceCollection, IConfiguration configuration)
         {
-            return serviceCollection.AddDbContext<DataContext>(x => x.UseNpgsql(configuration.GetConnectionString("DefaultConnection")));
+            return serviceCollection.AddDbContext<DataContext>(x => x.UseNpgsql(configuration.GetConnectionString("DefaultConnection"), b => b.MigrationsAssembly("Auth.Api")));
         }
 
         public static IServiceCollection AddDependencies(this IServiceCollection serviceCollection)
