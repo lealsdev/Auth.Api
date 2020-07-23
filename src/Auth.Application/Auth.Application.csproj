@@ -5,7 +5,7 @@
   </PropertyGroup>
 
   <ItemGroup>
-    <ProjectReference Include="../auth.repository/auth.repository.csproj"/>
+    <ProjectReference Include="../Auth.Repository/Auth.Repository.csproj"/>
   </ItemGroup>
 
   <ItemGroup>
