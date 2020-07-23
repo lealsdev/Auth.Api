@@ -8,4 +8,8 @@
     <ProjectReference Include="../auth.repository/auth.repository.csproj"/>
   </ItemGroup>
 
+  <ItemGroup>
+    <PackageReference Include="BCrypt-Core" Version="2.0.0" />
+  </ItemGroup>
+
 </Project>
