@@ -11,8 +11,6 @@ using Microsoft.Extensions.DependencyInjection;
 using Microsoft.Extensions.Hosting;
 using Microsoft.Extensions.Logging;
 using Auth.Infra.Ioc;
-using Auth.Infra.Data;
-using Microsoft.EntityFrameworkCore;
 
 namespace auth.api
 {
@@ -42,6 +40,8 @@ namespace auth.api
             }
 
             app.UseRouting();
+
+            app.UseCors(x => x.AllowAnyOrigin().AllowAnyMethod().AllowAnyHeader());
 
             app.UseAuthorization();
 

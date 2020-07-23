@@ -11,6 +11,10 @@ namespace Auth.Application.Interfaces
 
          Task<List<User>> Get();
 
-         Task<List<User>> GetBy(Guid id);
+         Task<User> GetBy(Guid id);
+
+         Task<User> GetBy(string email);
+
+         Task<bool> checkUserExistsBy(string email);
     }
 }

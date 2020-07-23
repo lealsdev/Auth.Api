@@ -25,9 +25,19 @@ namespace Auth.Application
             return await this._userRepository.Get();
         }
 
-        public async Task<List<User>> GetBy(Guid id)
+        public async Task<User> GetBy(Guid id)
         {
             return await this._userRepository.GetBy(id);
+        }
+
+        public async Task<User> GetBy(string email)
+        {
+            return await this._userRepository.GetBy(email);
+        }
+
+        public async Task<bool> checkUserExistsBy(string email)
+        {
+            return await GetBy(email) != null;
         }
     }
 }

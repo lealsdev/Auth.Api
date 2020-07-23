@@ -30,9 +30,14 @@ namespace Auth.Repository
             return await _context.Users.ToListAsync();
         }
 
-        public async Task<List<User>> GetBy(Guid id)
+        public async Task<User> GetBy(Guid id)
         {
-            return await _context.Users.Where(u => u.Id == id).ToListAsync();
+            return await _context.Users.FirstOrDefaultAsync(u => u.Id == id);
+        }
+
+        public async Task<User> GetBy(string email)
+        {
+            return await _context.Users.FirstOrDefaultAsync(u => u.Email == email);
         }
     }
 }
