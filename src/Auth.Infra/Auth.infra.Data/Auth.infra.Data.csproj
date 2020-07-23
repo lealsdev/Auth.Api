@@ -4,7 +4,7 @@
   </PropertyGroup>
 
   <ItemGroup>
-    <ProjectReference Include="../../Auth.Model/Auth.Model.csproj"/>
+    <ProjectReference Include="../../Auth.Model/Auth.Model.csproj"/>    
   </ItemGroup>
 
   <ItemGroup>

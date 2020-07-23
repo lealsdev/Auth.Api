@@ -3,6 +3,11 @@ using Microsoft.Extensions.DependencyInjection;
 using Auth.Infra.Data;
 using Microsoft.EntityFrameworkCore;
 using Microsoft.Extensions.Configuration;
+using Auth.Repository.Interfaces;
+using Auth.Repository;
+using Auth.Application.Interfaces;
+using Auth.Application;
+using AutoMapper;
 
 namespace Auth.Infra.Ioc
 {
@@ -15,7 +20,10 @@ namespace Auth.Infra.Ioc
 
         public static IServiceCollection AddDependencies(this IServiceCollection serviceCollection)
         {
-            return serviceCollection;
+            return serviceCollection
+                .AddScoped<IUserRepository, UserRepository>()
+                .AddScoped<IUserApplication, UserApplication>()
+                .AddAutoMapper(AppDomain.CurrentDomain.GetAssemblies());;
         }
     }
 }

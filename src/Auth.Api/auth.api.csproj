@@ -7,11 +7,13 @@
   <ItemGroup>
     <ProjectReference Include="../Auth.Application/Auth.Application.csproj"/>
     <ProjectReference Include="../Auth.Infra/Auth.Infra.Ioc/Auth.Infra.Ioc.csproj"/>
+    <ProjectReference Include="../Auth.Model/Auth.Model.csproj"/>
   </ItemGroup>
 
   <ItemGroup>
     <PackageReference Include="Microsoft.EntityFrameworkCore.Design" Version="3.1.0" />
     <PackageReference Include="Npgsql.EntityFrameworkCore.PostgreSQL" Version="3.1.0"/>
+    <PackageReference Include="AutoMapper.Extensions.Microsoft.DependencyInjection" Version="7.0.0"/>
   </ItemGroup>
 
 </Project>

@@ -4,4 +4,13 @@
     <TargetFramework>netcoreapp3.1</TargetFramework>
   </PropertyGroup>
 
+  <ItemGroup>
+    <ProjectReference Include="../Auth.Infra/Auth.Infra.Data/Auth.Infra.Data.csproj"/>
+    <ProjectReference Include="../Auth.Model/Auth.Model.csproj"/>
+  </ItemGroup>
+
+  <ItemGroup>
+    <PackageReference Include="Microsoft.EntityFrameworkCore" Version="3.1.0"/>
+  </ItemGroup>
+
 </Project>
