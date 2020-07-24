@@ -53,7 +53,7 @@ namespace Auth.Application
             return new SecurityTokenDescriptor
             {
                 Subject = new ClaimsIdentity(claims),
-                Expires = DateTime.Now.AddDays(1),
+                Expires = DateTime.Now.AddSeconds(3600),
                 SigningCredentials = credentials
             };
         }
