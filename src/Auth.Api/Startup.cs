@@ -50,6 +50,14 @@ namespace auth.api
             app.UseAuthentication();
             app.UseAuthorization();
 
+            app.UseSwagger();
+            app.UseSwaggerUI(c =>
+            {
+                c.SwaggerEndpoint("/swagger/v1/swagger.json", "Auth Api");
+
+                c.RoutePrefix = string.Empty;
+            });
+
             app.UseEndpoints(endpoints =>
             {
                 endpoints.MapControllers();

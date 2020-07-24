@@ -11,6 +11,7 @@ using AutoMapper;
 using Microsoft.AspNetCore.Authentication.JwtBearer;
 using System.Text;
 using Microsoft.IdentityModel.Tokens;
+using System.Linq;
 
 namespace Auth.Infra.Ioc
 {
@@ -29,7 +30,28 @@ namespace Auth.Infra.Ioc
                 .AddScoped<IAuthApplication, AuthApplication>()
                 .AddScoped<IBCryptApplication, BCryptApplication>()
                 .AddScoped<ITokenApplication, TokenApplication>()
-                .AddAutoMapper(AppDomain.CurrentDomain.GetAssemblies());                
+                .AddAutoMapper(AppDomain.CurrentDomain.GetAssemblies())
+                .AddSwaggerGen(c =>
+                {
+                    c.SwaggerDoc("v1", new Microsoft.OpenApi.Models.OpenApiInfo
+                    {
+                        Version = "v1",
+                        Title = "User API",
+                        Description = "User API",
+                        Contact = new Microsoft.OpenApi.Models.OpenApiContact
+                        {
+                            Name = "Auth API",
+                            Email = "authapi@authapi.com",
+                            Url = new Uri("https://www.example.com/"),
+                        },
+                        License = new Microsoft.OpenApi.Models.OpenApiLicense
+                        {
+                            Name = "Use under LICX",
+                            Url = new Uri("https://example.com/license"),
+                        }
+                    });
+                    c.ResolveConflictingActions(apiDescriptions => apiDescriptions.First());
+                });
         }
 
         public static IServiceCollection AddAuthorizationAndAuthentication(this IServiceCollection serviceCollection, IConfiguration configuration)
