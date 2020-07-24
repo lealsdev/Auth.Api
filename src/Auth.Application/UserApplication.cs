@@ -36,7 +36,7 @@ namespace Auth.Application
             return await this._userRepository.Delete(userForDelete);
         }
 
-        public async Task<List<User>> Get()
+        public async Task<IEnumerable<User>> Get()
         {
             return await this._userRepository.Get();
         }

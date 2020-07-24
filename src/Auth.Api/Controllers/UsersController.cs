@@ -28,7 +28,7 @@ namespace Auth.Api.Controllers
         public async Task<IActionResult> Get()
         {
             var users = await this._userApplication.Get();
-            var usersForList = _mapper.Map<List<UserForList>>(users);
+            var usersForList = _mapper.Map<IEnumerable<UserForList>>(users);
 
             return Ok(usersForList);
         }
@@ -46,7 +46,7 @@ namespace Auth.Api.Controllers
         [HttpPut("{id}")]
         public async Task<IActionResult> Put(Guid id, UserForUpdate userForUpdateDto) 
         {
-            if(this.isLoogedUserAbleToUpdateUserData(id))
+            if(this.isLoggedUserAbleToUpdateUserData(id))
             {
                 var userFromRepo = await _userApplication.GetBy(id);
 
@@ -75,7 +75,7 @@ namespace Auth.Api.Controllers
                 return BadRequest();
         }
 
-        private bool isLoogedUserAbleToUpdateUserData(Guid idFromRequest)
+        private bool isLoggedUserAbleToUpdateUserData(Guid idFromRequest)
         {
             return idFromRequest.ToString() == User.FindFirst(ClaimTypes.NameIdentifier).Value;
         }

@@ -37,7 +37,7 @@ namespace Auth.Repository
             return await _context.SaveChangesAsync() > 0;
         }
 
-        public async Task<List<User>> Get()
+        public async Task<IEnumerable<User>> Get()
         {
             return await _context.Users.ToListAsync();
         }
