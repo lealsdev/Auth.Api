@@ -34,19 +34,25 @@ namespace Auth.Api.Controllers
         }
 
         [HttpGet("{id}", Name="GetBy")]
-        [Authorize(Roles = "admin, user")]
         public async Task<IActionResult> Get(Guid id)
         {
-            var userFromRepo = await this._userApplication.GetBy(id);
-            var userForDetailed = _mapper.Map<UserForDetailed>(userFromRepo);
+            if(this.isLoggedUserAbleToReadAndUpdateUserData(id) || this.isLoggedUserAdmin())
+            {
+                var userFromRepo = await this._userApplication.GetBy(id);
+                var userForDetailed = _mapper.Map<UserForDetailed>(userFromRepo);
 
-            return Ok(userForDetailed);
+                return Ok(userForDetailed);
+            }
+            else
+            {
+                return Unauthorized();
+            }
         }
 
         [HttpPut("{id}")]
         public async Task<IActionResult> Put(Guid id, UserForUpdate userForUpdateDto) 
         {
-            if(this.isLoggedUserAbleToUpdateUserData(id))
+            if(this.isLoggedUserAbleToReadAndUpdateUserData(id))
             {
                 var userFromRepo = await _userApplication.GetBy(id);
 
@@ -75,9 +81,14 @@ namespace Auth.Api.Controllers
                 return BadRequest();
         }
 
-        private bool isLoggedUserAbleToUpdateUserData(Guid idFromRequest)
+        private bool isLoggedUserAbleToReadAndUpdateUserData(Guid idFromRequest)
         {
             return idFromRequest.ToString() == User.FindFirst(ClaimTypes.NameIdentifier).Value;
+        }
+
+        private bool isLoggedUserAdmin()
+        {
+            return User.FindFirst(ClaimTypes.Role).Value == "admin";
         }
     }
 }
