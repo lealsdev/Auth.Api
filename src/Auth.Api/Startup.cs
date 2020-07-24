@@ -42,7 +42,7 @@ namespace auth.api
             {
                 app.UseDeveloperExceptionPage();
             }
-
+            Microsoft.IdentityModel.Logging.IdentityModelEventSource.ShowPII = true; 
             app.UseRouting();
 
             app.UseCors(x => x.AllowAnyOrigin().AllowAnyMethod().AllowAnyHeader());

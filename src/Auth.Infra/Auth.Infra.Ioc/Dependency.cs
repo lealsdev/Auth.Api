@@ -41,7 +41,7 @@ namespace Auth.Infra.Ioc
                     ValidateIssuerSigningKey = false,                        
                     IssuerSigningKey = new SymmetricSecurityKey(
                         Encoding.UTF8.GetBytes(
-                            configuration.GetSection("AppSettings:Token").Value)),
+                            configuration.GetSection("AppSettings:Token:Key").Value)),
                     ValidateIssuer = false,
                     ValidateAudience = false
                 };

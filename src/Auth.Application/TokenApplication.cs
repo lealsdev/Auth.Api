@@ -40,7 +40,7 @@ namespace Auth.Application
         private SymmetricSecurityKey CreateKey()
         {
             return new SymmetricSecurityKey(
-                Encoding.UTF8.GetBytes(_configuration.GetSection("AppSettings:Token").Value));
+                Encoding.UTF8.GetBytes(_configuration.GetSection("AppSettings:Token:Key").Value));
         }
 
         private SigningCredentials CreateCredentialsWith(SymmetricSecurityKey key)
@@ -53,7 +53,7 @@ namespace Auth.Application
             return new SecurityTokenDescriptor
             {
                 Subject = new ClaimsIdentity(claims),
-                Expires = DateTime.Now.AddSeconds(3600),
+                Expires = DateTime.Now.AddHours(int.Parse(_configuration.GetSection("AppSettings:Token:ExpirationInSeconds").Value)),
                 SigningCredentials = credentials
             };
         }
