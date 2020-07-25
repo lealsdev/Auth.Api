@@ -58,7 +58,7 @@ namespace Auth.Application
 
         public async Task<bool> checkUserExistsBy(string email)
         {
-            return await GetBy(email) == null;
+            return await GetBy(email) != null;
         }
     }
 }
