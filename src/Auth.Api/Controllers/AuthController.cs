@@ -32,7 +32,7 @@ namespace Auth.Api.Controllers
         [HttpPost("register")]
         public async Task<IActionResult> Register(UserForRegister userForRegister)
         {
-            if (await this._userApplication.checkUserExistsBy(userForRegister.Email))
+            if (!await this._userApplication.checkUserExistsBy(userForRegister.Email))
             {
                 var userToCreate = _mapper.Map<User>(userForRegister);
 
