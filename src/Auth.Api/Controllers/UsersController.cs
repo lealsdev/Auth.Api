@@ -69,6 +69,16 @@ namespace Auth.Api.Controllers
             }
         }
 
+        [HttpPut("{id}/SetToAdmin")]
+        [Authorize(Roles="admin")]
+        public async Task<IActionResult> SetToAdmin(Guid id) 
+        {
+            if(await this._userApplication.SetToAdmin(id))
+                return Ok();
+            else
+                return BadRequest();
+        }
+
         [HttpDelete("{id}")]
         [Authorize(Roles = "admin")]
         public async Task<IActionResult> Delete(Guid id) 

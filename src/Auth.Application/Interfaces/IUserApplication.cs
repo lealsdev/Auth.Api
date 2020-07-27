@@ -11,6 +11,8 @@ namespace Auth.Application.Interfaces
 
          Task<bool> Delete(Guid id);
 
+         Task<bool> SetToAdmin(Guid id);
+
          Task<IEnumerable<User>> Get();
 
          Task<User> GetBy(Guid id);

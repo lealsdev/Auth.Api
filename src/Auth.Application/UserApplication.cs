@@ -22,6 +22,7 @@ namespace Auth.Application
 
         public async Task<User> Add(User user)
         {
+            user.Claims = "user";
             user.Password = this._bCryptApplication.Encrypt(user.Password);
 
             await this._userRepository.Add(user);
@@ -34,6 +35,15 @@ namespace Auth.Application
             var userForDelete = await this.GetBy(id);
 
             return await this._userRepository.Delete(userForDelete);
+        }
+
+        public async Task<bool> SetToAdmin(Guid id)
+        {
+            var userForSetToAdmin = await this.GetBy(id);
+
+            userForSetToAdmin.Claims = "admin";
+
+            return await this._userRepository.SaveAll();
         }
 
         public async Task<IEnumerable<User>> Get()
