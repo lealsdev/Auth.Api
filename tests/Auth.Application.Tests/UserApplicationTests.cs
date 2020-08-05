@@ -17,7 +17,7 @@ namespace Auth.Application.Tests
     public UserApplicationTests()
     {
       IBCryptApplication bCryptApplication = bCryptApplication = new BCryptApplicationFake();
-      IUserRepository userRepository = userRepository = new UserRepositoryFake(10);
+      IUserRepository userRepository = new UserRepositoryFake(10);
       
       this._userApplication = new UserApplication(userRepository, bCryptApplication);
     }
