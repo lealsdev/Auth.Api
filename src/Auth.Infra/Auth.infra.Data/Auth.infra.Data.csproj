@@ -4,12 +4,12 @@
   </PropertyGroup>
 
   <ItemGroup>
-    <ProjectReference Include="../../Auth.Model/Auth.Model.csproj"/>    
+    <ProjectReference Include="../../Auth.Model/Auth.Model.csproj" />    
   </ItemGroup>
 
   <ItemGroup>
+    <PackageReference Include="Microsoft.EntityFrameworkCore.SqlServer" Version="3.1.0" />
     <PackageReference Include="Microsoft.Extensions.DependencyInjection" Version="3.1.4" />
-    <PackageReference Include="Microsoft.EntityFrameworkCore.Design" Version="3.1.0"/>
-    <PackageReference Include="Npgsql.EntityFrameworkCore.PostgreSQL" Version="3.1.0"/>
+    <PackageReference Include="Microsoft.EntityFrameworkCore.Design" Version="3.1.0" />
   </ItemGroup>
 </Project>

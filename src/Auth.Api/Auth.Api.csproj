@@ -5,16 +5,29 @@
   </PropertyGroup>
 
   <ItemGroup>
-    <ProjectReference Include="../Auth.Application/Auth.Application.csproj"/>
-    <ProjectReference Include="../Auth.Infra/Auth.Infra.Ioc/Auth.Infra.Ioc.csproj"/>
-    <ProjectReference Include="../Auth.Model/Auth.Model.csproj"/>
+    <Compile Remove="Migrations\20220425162125_Init.cs" />
+    <Compile Remove="Migrations\20220425162125_Init.Designer.cs" />
   </ItemGroup>
 
   <ItemGroup>
-    <PackageReference Include="Microsoft.EntityFrameworkCore" Version="3.1.0"/>
+    <ProjectReference Include="../Auth.Application/Auth.Application.csproj" />
+    <ProjectReference Include="../Auth.Infra/Auth.Infra.Ioc/Auth.Infra.Ioc.csproj" />
+    <ProjectReference Include="../Auth.Model/Auth.Model.csproj" />
+  </ItemGroup>
+
+  <ItemGroup>
+    <PackageReference Include="Microsoft.EntityFrameworkCore" Version="3.1.0" />
     <PackageReference Include="Microsoft.EntityFrameworkCore.Design" Version="3.1.0" />
-    <PackageReference Include="Npgsql.EntityFrameworkCore.PostgreSQL" Version="3.1.0"/>
-    <PackageReference Include="AutoMapper.Extensions.Microsoft.DependencyInjection" Version="7.0.0"/>
+    <PackageReference Include="Microsoft.EntityFrameworkCore.SqlServer" Version="3.1.0" />
+    <PackageReference Include="AutoMapper.Extensions.Microsoft.DependencyInjection" Version="7.0.0" />
+    <PackageReference Include="Microsoft.EntityFrameworkCore.Tools" Version="3.1.0">
+      <PrivateAssets>all</PrivateAssets>
+      <IncludeAssets>runtime; build; native; contentfiles; analyzers; buildtransitive</IncludeAssets>
+    </PackageReference>
+  </ItemGroup>
+
+  <ItemGroup>
+    <Folder Include="Migrations\" />
   </ItemGroup>
 
 </Project>
